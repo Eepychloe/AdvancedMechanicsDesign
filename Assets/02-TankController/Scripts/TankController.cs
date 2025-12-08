@@ -40,17 +40,17 @@ public class TankController : MonoBehaviour
 
 	private void Handle_AcceleratePerformed(InputAction.CallbackContext context)
 	{
-
+		Debug.Log("Accelarate Performed");
 	}
 
 	private void Handle_AccelerateCanceled(InputAction.CallbackContext context)
 	{
-
+		
 	}
 
 	private void Handle_SteerPerformed(InputAction.CallbackContext context)
 	{
-
+		Debug.Log("Steer Performed");
 	}
 
 	private void Handle_SteerCanceled(InputAction.CallbackContext context)
@@ -60,7 +60,7 @@ public class TankController : MonoBehaviour
 
 	private void Handle_FirePerformed(InputAction.CallbackContext context)
 	{
-
+		Debug.Log("Fire Performed");
 	}
 
 	private void Handle_FireCanceled(InputAction.CallbackContext context)
@@ -75,6 +75,6 @@ public class TankController : MonoBehaviour
 
 	private void Handle_ZoomPerformed(InputAction.CallbackContext context)
 	{
-
+		Debug.Log("Zoom Performed");
 	}
 }

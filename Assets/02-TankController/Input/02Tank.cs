@@ -95,7 +95,7 @@ public partial class @AM_02Tank: IInputActionCollection2, IDisposable
                     ""name"": ""Accelerate"",
                     ""type"": ""Button"",
                     ""id"": ""33f16d51-dff8-436a-a28d-69ea024d2efe"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -113,7 +113,7 @@ public partial class @AM_02Tank: IInputActionCollection2, IDisposable
                     ""name"": ""Fire"",
                     ""type"": ""Button"",
                     ""id"": ""04d4d109-e500-44ed-8e0b-4704fbe16769"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
