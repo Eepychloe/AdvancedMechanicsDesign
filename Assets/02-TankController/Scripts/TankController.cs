@@ -5,10 +5,25 @@ using UnityEngine.InputSystem;
 public class TankController : MonoBehaviour
 {
 	private AM_02Tank m_ActionMap; //input
+	private Rigidbody m_rb;
+	private float m_accel;
+	[SerializeField] private float m_tankSpeed;
+	
+	//Track
+	[SerializeField] private Track m_rightTrack;
+	[SerializeField] private Track m_leftTrack;
+	
+	//Camera
+	private Vector2 m_camAngles;
+	[SerializeField] private float m_minXAngleDeg = 10;
+	[SerializeField] private float m_maxXAngleDeg = 60;
+	[SerializeField] private Transform m_springArm;
+	[SerializeField] private Camera m_camera;
 
 	private void Awake()
 	{
 		m_ActionMap = new AM_02Tank();
+		m_rb = GetComponent<Rigidbody>();
 	}
 
 	private void OnEnable()
@@ -38,14 +53,39 @@ public class TankController : MonoBehaviour
 		m_ActionMap.Default.Zoom.performed -= Handle_ZoomPerformed;
 	}
 
+	private void FixedUpdate()
+	{
+		//Find forward facing direction of the tank body
+		Vector3 tankForward = transform.forward;
+		
+		//all tracks
+		Track[] tracks = { m_rightTrack, m_leftTrack };
+
+		foreach (var track in tracks)
+		{
+			//get all arms
+			var suspensionArms = track.GetSuspensionArms();
+
+			foreach (SuspensionArm arm in suspensionArms)
+			{
+				if (arm.IsGrounded)
+				{
+					Transform wheel = arm.GetWheel();
+					m_rb.AddForceAtPosition(tankForward * (m_accel * m_tankSpeed), wheel.position,
+						ForceMode.Acceleration);
+				}
+			}
+		}
+	}
+
 	private void Handle_AcceleratePerformed(InputAction.CallbackContext context)
 	{
-		Debug.Log("Accelarate Performed");
+		m_accel = context.ReadValue<float>();
 	}
 
 	private void Handle_AccelerateCanceled(InputAction.CallbackContext context)
 	{
-		
+		m_accel = 0;
 	}
 
 	private void Handle_SteerPerformed(InputAction.CallbackContext context)
@@ -70,11 +110,21 @@ public class TankController : MonoBehaviour
 
 	private void Handle_AimPerformed(InputAction.CallbackContext context)
 	{
-
+		Vector2 deltaPos = context.ReadValue<Vector2>();
+		
+		//flip y delta
+		deltaPos.y *= -1;
+		
+		//X clamped, y not, as would defeat point in camera.
+		m_camAngles.x = Mathf.Clamp(m_camAngles.x + deltaPos.y, m_minXAngleDeg, m_maxXAngleDeg);
+		m_camAngles.y = Mathf.Repeat(m_camAngles.y + deltaPos.x, 360f);
+		
+		//Set rotation of spring arm
+		m_springArm.rotation = Quaternion.Euler(m_camAngles);
 	}
 
 	private void Handle_ZoomPerformed(InputAction.CallbackContext context)
 	{
-		Debug.Log("Zoom Performed");
+		m_camera.fieldOfView += context.ReadValue<float>() * 2;
 	}
 }
