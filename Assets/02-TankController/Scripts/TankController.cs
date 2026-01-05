@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,9 @@ public class TankController : MonoBehaviour
 	private Rigidbody m_rb;
 	private float m_accel;
 	[SerializeField] private float m_tankSpeed;
+
+	[SerializeField] private GameObject m_Turret;
+	[SerializeField] private GameObject m_Barrel;
 	
 	//Track
 	[SerializeField] private Track m_rightTrack;
@@ -111,6 +115,7 @@ public class TankController : MonoBehaviour
 	private void Handle_AimPerformed(InputAction.CallbackContext context)
 	{
 		Vector2 deltaPos = context.ReadValue<Vector2>();
+		Vector3 camForward = Camera.main.transform.forward;
 		
 		//flip y delta
 		deltaPos.y *= -1;
@@ -121,6 +126,21 @@ public class TankController : MonoBehaviour
 		
 		//Set rotation of spring arm
 		m_springArm.rotation = Quaternion.Euler(m_camAngles);
+		
+		//Turret Rotation
+		Quaternion targetRotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(camForward, m_Turret.transform.up));
+		m_Turret.transform.rotation = targetRotation;
+		
+		//Barrel Rotation
+		Vector3 turretBRight = m_Turret.transform.right;
+		Vector3 projVec = Vector3.ProjectOnPlane(camForward, turretBRight);
+
+		float angleDiff = Vector3.SignedAngle(-projVec, m_Turret.transform.forward, turretBRight);
+
+		angleDiff = Mathf.Clamp(angleDiff, -10, 40);
+		Quaternion targetRot = Quaternion.Euler(angleDiff, 0, 0);
+		
+		m_Barrel.transform.localRotation = targetRot;
 	}
 
 	private void Handle_ZoomPerformed(InputAction.CallbackContext context)

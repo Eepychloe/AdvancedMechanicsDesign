@@ -2190,10 +2190,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_tankSpeed: 3.5
+  m_Turret: {fileID: 1013742091}
+  m_Barrel: {fileID: 357494961}
   m_rightTrack: {fileID: 1937698542}
   m_leftTrack: {fileID: 55085258}
-  m_minXAngleDeg: 10
-  m_maxXAngleDeg: 60
+  m_minXAngleDeg: -10
+  m_maxXAngleDeg: 35
   m_springArm: {fileID: 1120072380}
   m_camera: {fileID: 880163267}
 --- !u!4 &928874463
