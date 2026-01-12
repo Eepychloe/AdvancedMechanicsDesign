@@ -24,6 +24,7 @@ public class TankController : MonoBehaviour
 	[SerializeField] private Transform m_springArm;
 	[SerializeField] private Camera m_camera;
 
+	[SerializeField] private float m_biasAngle;
 	private void Awake()
 	{
 		m_ActionMap = new AM_02Tank();
@@ -135,10 +136,10 @@ public class TankController : MonoBehaviour
 		Vector3 turretBRight = m_Turret.transform.right;
 		Vector3 projVec = Vector3.ProjectOnPlane(camForward, turretBRight);
 
-		float angleDiff = Vector3.SignedAngle(-projVec, m_Turret.transform.forward, turretBRight);
+		float angleDiff = Vector3.SignedAngle(projVec, m_Turret.transform.forward, turretBRight);
 
-		angleDiff = Mathf.Clamp(angleDiff, -10, 40);
-		Quaternion targetRot = Quaternion.Euler(angleDiff, 0, 0);
+		angleDiff = Mathf.Clamp(angleDiff - m_biasAngle, -10, 30);
+		Quaternion targetRot = Quaternion.Euler(-angleDiff , 0, 0);
 		
 		m_Barrel.transform.localRotation = targetRot;
 	}

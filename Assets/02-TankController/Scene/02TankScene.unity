@@ -2198,6 +2198,7 @@ MonoBehaviour:
   m_maxXAngleDeg: 35
   m_springArm: {fileID: 1120072380}
   m_camera: {fileID: 880163267}
+  m_biasAngle: -40
 --- !u!4 &928874463
 Transform:
   m_ObjectHideFlags: 0
