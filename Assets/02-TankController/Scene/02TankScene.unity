@@ -1321,7 +1321,7 @@ MonoBehaviour:
   m_suspensionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_stiffness: 10
+  m_stiffness: 3
   m_damping: 5
 --- !u!1 &795188233
 GameObject:
@@ -2918,7 +2918,7 @@ MonoBehaviour:
   m_suspensionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_stiffness: 10
+  m_stiffness: 3
   m_damping: 5
 --- !u!1 &1120072379
 GameObject:
@@ -3325,7 +3325,7 @@ MonoBehaviour:
   m_suspensionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_stiffness: 10
+  m_stiffness: 3
   m_damping: 5
 --- !u!1 &1235931972
 GameObject:
@@ -3861,7 +3861,7 @@ MonoBehaviour:
   m_suspensionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_stiffness: 10
+  m_stiffness: 3
   m_damping: 5
 --- !u!1 &1692009104
 GameObject:
@@ -4052,7 +4052,7 @@ MonoBehaviour:
   m_suspensionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_stiffness: 10
+  m_stiffness: 3
   m_damping: 5
 --- !u!1 &1803464508
 GameObject:
@@ -4189,7 +4189,7 @@ MonoBehaviour:
   m_suspensionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_stiffness: 10
+  m_stiffness: 3
   m_damping: 5
 --- !u!1 &1896376904
 GameObject:
