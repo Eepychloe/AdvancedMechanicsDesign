@@ -1,0 +1,26 @@
+VisualElement {}
+
+#top{
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+#bottom{
+    flex-shrink: 0;
+    flex-grow: 0;
+    min-height: 25%;
+    flex-direction: row;
+}
+
+#bottom > #left{
+    
+
+}
+
+#bottom > #right{
+    flex-grow: 1;
+    background-color: black;
+    color: white;
+}
+
+
