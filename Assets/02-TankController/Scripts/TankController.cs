@@ -106,6 +106,7 @@ public class TankController : MonoBehaviour
 	private void Handle_FirePerformed(InputAction.CallbackContext context)
 	{
 		Debug.Log("Fire Performed");
+		
 	}
 
 	private void Handle_FireCanceled(InputAction.CallbackContext context)
