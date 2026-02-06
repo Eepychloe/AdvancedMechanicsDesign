@@ -25,10 +25,14 @@ public class TankController : MonoBehaviour
 	[SerializeField] private Camera m_camera;
 
 	[SerializeField] private float m_biasAngle;
+
+	private TankAmmo m_tankAmmo;
+	
 	private void Awake()
 	{
 		m_ActionMap = new AM_02Tank();
 		m_rb = GetComponent<Rigidbody>();
+		m_tankAmmo = GetComponent<TankAmmo>();
 	}
 
 	private void OnEnable()
@@ -106,7 +110,7 @@ public class TankController : MonoBehaviour
 	private void Handle_FirePerformed(InputAction.CallbackContext context)
 	{
 		Debug.Log("Fire Performed");
-		
+		m_tankAmmo.Fire();
 	}
 
 	private void Handle_FireCanceled(InputAction.CallbackContext context)
