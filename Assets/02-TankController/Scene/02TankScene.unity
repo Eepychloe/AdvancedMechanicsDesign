@@ -2175,6 +2175,8 @@ GameObject:
   - component: {fileID: 928874468}
   - component: {fileID: 928874467}
   - component: {fileID: 928874469}
+  - component: {fileID: 928874470}
+  - component: {fileID: 928874471}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -2299,7 +2301,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_currentAmmoCount: 0
   m_clipSize: 5
-  m_FirePoint: {fileID: 0}
+  m_FirePoint: {fileID: 1602318924}
+--- !u!114 &928874470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928874459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c1ed714e25489a4c9a81e0a05ba7026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 1602318924}
+  power: 5
+--- !u!114 &928874471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928874459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1776617dc299b4459030ec0cc266765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &934198954
 GameObject:
   m_ObjectHideFlags: 0
