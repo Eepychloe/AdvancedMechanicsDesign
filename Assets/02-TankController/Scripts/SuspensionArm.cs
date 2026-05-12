@@ -55,8 +55,22 @@ public class SuspensionArm : MonoBehaviour
         bool hasHit = Physics.Raycast(pos, dir, out hitInfo, m_suspensionArmLength);
 
         float dist = (!hasHit) ? (m_suspensionArmLength) : (hitInfo.distance);
+        
+        if (hitInfo.collider != false)
+        {
+            //Hit something = grounded
+            m_raycastHitDist = hitInfo.distance;
+            m_isGrounded = true;
+            
+        }
+        else
+        {
+            m_raycastHitDist = 0;
+            m_isGrounded = false;
+        }
 
         m_wheel.position = pos + dir * dist;
+        
         if (!hasHit)
             return;
 
@@ -68,23 +82,12 @@ public class SuspensionArm : MonoBehaviour
         float suspensionVel = Vector3.Dot(-m_wheel.transform.up, vel);
         float x = displacementInUnits;
         float k = m_stiffness;
-        float force = (-k * x) - m_damping * suspensionVel;
-        Vector3 SuspensionForce = -m_wheel.transform.up * force;
-        m_rb.AddForceAtPosition(SuspensionForce, m_wheel.position, ForceMode.Acceleration);
-        Debug.Log(SuspensionForce);
+        float force = (-k * x) - (m_damping * suspensionVel);
+        Vector3 SuspensionForce = -m_wheel.transform.up * (force);
         
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, m_suspensionArmLength,
-                m_suspensionLayerMask))
-        {
-            //Hit something = grounded
-            m_raycastHitDist = hit.distance;
-            m_isGrounded = true;
-        }
-        else
-        {
-            m_raycastHitDist = 0;
-            m_isGrounded = false;
-        }
+        Debug.DrawLine(m_wheel.position, m_wheel.position + SuspensionForce, Color.blue);
+        m_rb.AddForceAtPosition(SuspensionForce, m_wheel.position, ForceMode.Acceleration);
+        
     }
 
     public Transform GetWheel()

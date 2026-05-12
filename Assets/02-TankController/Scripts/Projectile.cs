@@ -1,28 +1,28 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Trajectory))]
 public class Projectile : MonoBehaviour
 {
     //For testing
     [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Rigidbody rb;
-    private float velocity;
+    [SerializeField] private float velocity = 20f;
     private int steps;
     private Trajectory trajectory;
 
     void Start()
     {
-        trajectory = GetComponent<Trajectory>();
-        rb = GetComponent<Rigidbody>();
+        //trajectory = GetComponent<Trajectory>();
     }
 
     public void SpawnProjectile(GameObject firePoint)
     {
-        
-        Instantiate(projectilePrefab, firePoint.transform.position, firePoint.transform.rotation);
-        //Vector3 pos = trajectory.Plot(rb, firePoint.transform.position, velocity, steps);
+        GameObject bullet = Instantiate(projectilePrefab, firePoint.transform.position, firePoint.transform.rotation);
+        Rigidbody bulrb = bullet.GetComponent<Rigidbody>();
+        bulrb.linearVelocity = bullet.transform.forward * velocity;
+        Debug.Log(transform.forward * velocity);
     }
 
-
-  
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(projectilePrefab);
+    }
 }

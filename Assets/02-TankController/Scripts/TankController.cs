@@ -8,6 +8,8 @@ public class TankController : MonoBehaviour
 	private AM_02Tank m_ActionMap; //input
 	private Rigidbody m_rb;
 	private float m_accel;
+	private float m_steer;
+	[SerializeField] private float m_steerSpeed;
 	[SerializeField] private float m_tankSpeed;
 
 	[SerializeField] private GameObject m_Turret;
@@ -33,6 +35,7 @@ public class TankController : MonoBehaviour
 		m_ActionMap = new AM_02Tank();
 		m_rb = GetComponent<Rigidbody>();
 		m_tankAmmo = GetComponent<TankAmmo>();
+		m_rb.maxLinearVelocity = 14f;
 	}
 
 	private void OnEnable()
@@ -62,13 +65,21 @@ public class TankController : MonoBehaviour
 		m_ActionMap.Default.Zoom.performed -= Handle_ZoomPerformed;
 	}
 
+	private Quaternion targetRotation;
+	
 	private void FixedUpdate()
 	{
+		
+		m_springArm.position = transform.position;
+		m_Turret.transform.rotation = Quaternion.RotateTowards(m_Turret.transform.rotation, targetRotation, 2);
+
 		//Find forward facing direction of the tank body
 		Vector3 tankForward = transform.forward;
 		
 		//all tracks
 		Track[] tracks = { m_rightTrack, m_leftTrack };
+		int a = 0;
+		
 
 		foreach (var track in tracks)
 		{
@@ -77,14 +88,35 @@ public class TankController : MonoBehaviour
 
 			foreach (SuspensionArm arm in suspensionArms)
 			{
+				a++;
 				if (arm.IsGrounded)
 				{
 					Transform wheel = arm.GetWheel();
-					m_rb.AddForceAtPosition(tankForward * (m_accel * m_tankSpeed), wheel.position,
-						ForceMode.Acceleration);
+					Vector3 momentum = wheel.forward * (m_accel * m_tankSpeed);
+					m_rb.AddForceAtPosition(momentum, wheel.position, ForceMode.Acceleration);
+					Debug.DrawLine(wheel.position, wheel.position + momentum * 50, Color.yellow);
+					if (m_steer < 0)
+					{
+						if (a < 4)
+						{
+							m_rb.AddForceAtPosition(momentum * m_steerSpeed, wheel.position, ForceMode.Acceleration);
+							
+						}
+					}
+					
+					else if (m_steer > 0)
+					{
+						if (a > 3)
+						{
+							m_rb.AddForceAtPosition(momentum * m_steerSpeed, wheel.position, ForceMode.Acceleration);
+							
+						}
+					}
 				}
 			}
+			
 		}
+		
 	}
 
 	private void Handle_AcceleratePerformed(InputAction.CallbackContext context)
@@ -99,12 +131,12 @@ public class TankController : MonoBehaviour
 
 	private void Handle_SteerPerformed(InputAction.CallbackContext context)
 	{
-		Debug.Log("Steer Performed");
+		m_steer = context.ReadValue<float>();
 	}
 
 	private void Handle_SteerCanceled(InputAction.CallbackContext context)
 	{
-
+		m_steer = 0;
 	}
 
 	private void Handle_FirePerformed(InputAction.CallbackContext context)
@@ -129,13 +161,15 @@ public class TankController : MonoBehaviour
 		//X clamped, y not, as would defeat point in camera.
 		m_camAngles.x = Mathf.Clamp(m_camAngles.x + deltaPos.y, m_minXAngleDeg, m_maxXAngleDeg);
 		m_camAngles.y = Mathf.Repeat(m_camAngles.y + deltaPos.x, 360f);
-		
+
+
+
 		//Set rotation of spring arm
 		m_springArm.rotation = Quaternion.Euler(m_camAngles);
 		
 		//Turret Rotation
-		Quaternion targetRotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(camForward, m_Turret.transform.up));
-		m_Turret.transform.rotation = targetRotation;
+		targetRotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(camForward, m_Turret.transform.up));
+		
 		
 		//Barrel Rotation
 		Vector3 turretBRight = m_Turret.transform.right;

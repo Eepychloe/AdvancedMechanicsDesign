@@ -139,15 +139,37 @@ public partial class @AM_02Tank: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""197e40c2-1c77-440a-8363-c32c96eec4ff"",
+                    ""name"": ""One Modifier"",
+                    ""id"": ""62d16cee-7b3e-425c-9432-042df2341f95"",
+                    ""path"": ""OneModifier(overrideModifiersNeedToBePressedFirst=true)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""6b8f7038-b6b3-4f37-aca8-ca4abbb5c588"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""10c7baf6-bc2f-4940-bb2c-76cc093184cd"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Aim"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",

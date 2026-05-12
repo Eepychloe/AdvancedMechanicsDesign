@@ -28,7 +28,7 @@ public class Track : MonoBehaviour
             m_tractionPercent = 0.0f;
 
         else
-            m_tractionPercent = Mathf.Clamp01(tractionCounter / (float)m_suspensionArms.Count);
+            m_tractionPercent = Mathf.Clamp01(tractionCounter / (float)m_suspensionArms.Count * 2);
     }
 
     public List<SuspensionArm> GetSuspensionArms()

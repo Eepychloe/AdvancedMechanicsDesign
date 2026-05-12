@@ -23,6 +23,7 @@ public class Trajectory : MonoBehaviour
     {
         Plot(rb, firePoint.transform.position, dragStartPos * power, 500);
         Debug.DrawLine(firePoint.transform.position, dragStartPos * power, Color.red);
+        
     }
 
     public Vector3[] Plot(Rigidbody rb, Vector3 pos, Vector3 velocity, int steps)
