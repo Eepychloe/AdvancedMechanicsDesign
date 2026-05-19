@@ -1322,7 +1322,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_stiffness: 6
-  m_damping: 3
+  m_damping: 1
 --- !u!1 &795188233
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,6 +2205,9 @@ MonoBehaviour:
   m_springArm: {fileID: 1120072380}
   m_camera: {fileID: 880163267}
   m_biasAngle: -40
+  antiDriftMul: 3
+  antiTorqueMul: 3
+  linearDampForce: 2
 --- !u!4 &928874463
 Transform:
   m_ObjectHideFlags: 0
@@ -2233,7 +2236,7 @@ Rigidbody:
   m_GameObject: {fileID: 928874459}
   serializedVersion: 5
   m_Mass: 57020
-  m_LinearDamping: 2
+  m_LinearDamping: 1
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0.7, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -2972,7 +2975,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_stiffness: 6
-  m_damping: 3
+  m_damping: 1
 --- !u!1 &1120072379
 GameObject:
   m_ObjectHideFlags: 0
@@ -3379,7 +3382,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_stiffness: 6
-  m_damping: 3
+  m_damping: 1
 --- !u!1 &1235931972
 GameObject:
   m_ObjectHideFlags: 0
@@ -3915,7 +3918,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_stiffness: 6
-  m_damping: 3
+  m_damping: 1
 --- !u!1 &1692009104
 GameObject:
   m_ObjectHideFlags: 0
@@ -4106,7 +4109,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_stiffness: 6
-  m_damping: 3
+  m_damping: 1
 --- !u!1 &1803464508
 GameObject:
   m_ObjectHideFlags: 0
@@ -4243,7 +4246,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_stiffness: 6
-  m_damping: 3
+  m_damping: 1
 --- !u!1 &1896376904
 GameObject:
   m_ObjectHideFlags: 0

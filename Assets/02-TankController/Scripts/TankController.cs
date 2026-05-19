@@ -29,6 +29,10 @@ public class TankController : MonoBehaviour
 	[SerializeField] private float m_biasAngle;
 
 	private TankAmmo m_tankAmmo;
+
+	[SerializeField] private float antiDriftMul;
+	[SerializeField] private float antiTorqueMul;
+	[SerializeField] private float linearDampForce;
 	
 	private void Awake()
 	{
@@ -36,6 +40,7 @@ public class TankController : MonoBehaviour
 		m_rb = GetComponent<Rigidbody>();
 		m_tankAmmo = GetComponent<TankAmmo>();
 		m_rb.maxLinearVelocity = 14f;
+		m_rb.maxAngularVelocity = 14f;
 	}
 
 	private void OnEnable()
@@ -95,6 +100,13 @@ public class TankController : MonoBehaviour
 					Vector3 momentum = wheel.forward * (m_accel * m_tankSpeed);
 					m_rb.AddForceAtPosition(momentum, wheel.position, ForceMode.Acceleration);
 					Debug.DrawLine(wheel.position, wheel.position + momentum * 50, Color.yellow);
+					
+					if(Mathf.Approximately(m_accel, 0f))
+					{
+						//Not accelerating, apply force in opposing direction of velocity
+						m_rb.AddForce(-m_rb.linearVelocity * linearDampForce, ForceMode.Acceleration);
+					}
+					
 					if (m_steer < 0)
 					{
 						if (a < 4)
@@ -114,9 +126,26 @@ public class TankController : MonoBehaviour
 					}
 				}
 			}
-			
 		}
 		
+		float sidewaysVelAmount = Vector3.Dot(transform.forward, m_rb.linearVelocity.normalized);
+ 
+		//Amount of force to apply in the opposing direction: higher if orthogonal
+		//otherwise lower if aligned with forward
+		float forceScale = 1f - Mathf.Abs(sidewaysVelAmount);
+ 
+		//Add the counteracting force
+		m_rb.AddForce(-m_rb.linearVelocity * forceScale * antiDriftMul, ForceMode.Acceleration);
+
+		if (Mathf.Approximately(m_steer, 0f))
+		{
+			//Not steering? Apply angular damping.
+			//..
+ 
+			//Get the 
+			Vector3 torque = m_rb.angularVelocity;
+			m_rb.AddTorque(-torque * antiTorqueMul, ForceMode.Acceleration);
+		}
 	}
 
 	private void Handle_AcceleratePerformed(InputAction.CallbackContext context)
